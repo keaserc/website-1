@@ -2,243 +2,90 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Python Quiz Studio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>a-corp // Python Manual</title>
     <style>
-        body {
-            margin: 0;
-            padding: 15px;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: #040609;
-            color: #c5cbd3;
-            user-select: none;
-            -webkit-user-select: none;
-        }
-
-        header {
-            background-color: #0b0e14;
-            padding: 15px;
-            border: 1px solid #1b1f27;
-            border-radius: 6px;
-            margin-bottom: 20px;
-            font-weight: bold;
-            font-size: 1.1rem;
-        }
-        header span { color: #4fa3ff; }
-
-        .task-card {
-            background-color: #0b0e14;
-            border: 1px solid #1b1f27;
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 25px;
-        }
-
-        h2 { margin: 0 0 10px 0; color: #ffffff; font-size: 1.3rem; border-bottom: 1px solid #1b1f27; padding-bottom: 8px; }
-        p { margin: 0 0 12px 0; font-size: 0.95rem; line-height: 1.5; }
-        
-        pre {
-            background-color: #010409;
-            color: #e6edf3;
-            padding: 12px;
-            border-radius: 6px;
-            border: 1px solid #1b1f27;
-            font-family: monospace;
-            font-size: 0.9rem;
-            margin: 12px 0;
-            overflow-x: auto;
-        }
-
-        .options-list {
-            margin-top: 15px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        /* 📱 МОБИЛЬНЫЙ ФИКС: Убираем синие обводки и задержки тапов */
-        .option-click-btn {
-            display: block;
-            width: 100%;
-            background-color: #1f242c;
-            color: #ffffff;
-            border: 1px solid #1b1f27;
-            padding: 15px;
-            border-radius: 6px;
-            font-family: monospace;
-            font-size: 0.95rem;
-            text-align: left;
-            box-sizing: border-box;
-            cursor: pointer;
-            outline: none;
-            -webkit-tap-highlight-color: transparent; /* Убирает синюю рамку на Android/iOS */
-            -webkit-appearance: none;
-            transition: background-color 0.15s, border-color 0.15s;
-        }
-
-        .option-click-btn.green-glow {
-            border-color: #2ea44f !important;
-            background-color: rgba(46, 164, 79, 0.15) !important;
-            color: #56d364 !important;
-            font-weight: bold;
-        }
-        .option-click-btn.red-glow {
-            border-color: #da3633 !important;
-            background-color: rgba(248, 81, 137, 0.1) !important;
-            color: #ff7b72 !important;
-        }
-
-        /* НАГРАДА И ФИНАЛЬНЫЙ СЕКРЕТНЫЙ СЕЙФ */
-        .reward-section {
-            background-color: #0d1117;
-            border: 2px dashed #30363d;
-            border-radius: 8px;
-            padding: 25px;
-            text-align: center;
-            margin-top: 40px;
-            margin-bottom: 20px;
-            transition: all 0.4s ease;
-        }
-        .reward-section.unlocked {
-            border-color: #ffca28;
-            background-color: #161b22;
-            box-shadow: 0 0 20px rgba(255, 202, 40, 0.15);
-        }
-        .chest-icon {
-            font-size: 3.5rem;
-            margin-bottom: 10px;
-            display: inline-block;
-            transition: transform 0.3s;
-        }
-        .reward-section.unlocked .chest-icon {
-            transform: scale(1.1);
-        }
-        .prize-diploma {
-            display: none;
-            animation: fadeIn 0.5s ease forwards;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .donation-banner {
-            background-color: #0b0e14;
-            border: 1px solid #1b1f27;
-            border-radius: 6px;
-            padding: 15px;
-            font-size: 0.85rem;
-            text-align: center;
-            line-height: 1.5;
-            margin-top: 30px;
-        }
-        .donation-banner strong { color: #ffca28; font-size: 0.95rem; }
-
-        .toast-notification {
-            position: fixed;
-            top: 25px;
-            left: 50%;
-            transform: translateX(-50%) translateY(-150px);
-            background-color: #2ea44f;
-            color: #ffffff;
-            padding: 12px 28px;
-            border-radius: 30px;
-            font-size: 1rem;
-            font-weight: bold;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.6);
-            z-index: 99999;
-            transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            pointer-events: none;
-        }
-        .toast-notification.pop-up { transform: translateX(-50%) translateY(0); }
+        body { margin: 0; padding: 15px; font-family: sans-serif; background-color: #040308; color: #d1d5db; }
+        header { background: linear-gradient(135deg, #0c0919 0%, #1e1135 100%); padding: 20px; border: 1px solid #9333ea; border-radius: 12px; margin-bottom: 20px; text-align: center; box-shadow: 0 8px 32px rgba(147, 51, 234, 0.2); }
+        header h1 { margin: 0; font-size: 1.5rem; color: #ffffff; letter-spacing: 2px; text-transform: uppercase; }
+        header h1 span { color: #9333ea; text-shadow: 0 0 10px #9333ea; }
+        header p { margin: 8px 0 0 0; color: #c084fc; font-size: 0.9rem; }
+        .manual-card { background-color: #0c0919; border: 1px solid #1e1b4b; border-radius: 14px; padding: 20px; margin-bottom: 20px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); }
+        .badge-num { display: inline-block; background-color: #2e1065; color: #c084fc; border: 1px solid #9333ea; padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: bold; margin-bottom: 10px; }
+        h2 { margin: 0 0 10px 0; font-size: 1.3rem; color: #ffffff; }
+        p { margin: 0 0 10px 0; line-height: 1.5; font-size: 0.95rem; }
+        pre { background-color: #020105; color: #e9d5ff; padding: 12px; border-radius: 8px; border: 1px solid #2e1065; font-family: monospace; font-size: 0.85rem; margin: 10px 0; overflow-x: auto; }
+        .footer-banner { background: linear-gradient(135deg, #0c0919 0%, #12072b 100%); border: 1px solid #1e1b4b; border-radius: 10px; padding: 15px; text-align: center; font-size: 0.85rem; margin-top: 30px; }
+        .footer-banner strong { color: #ffca28; }
     </style>
 </head>
 <body>
 
-    <div class="toast-notification" id="toast-window">✨ Ты молодец! Отличный результат!</div>
-
     <header>
-        🐍 Python<span>Quiz</span> Studio — Живой мобильный тренажер
+        <h1><span>a-corp</span> // Python Manual</h1>
+        <p>Практическое руководство по написанию базового кода</p>
     </header>
 
-    <!-- УРОК 1 -->
-    <div class="task-card" data-lesson="0">
-        <h2>Урок 1: Создаем переменную</h2>
-        <p>В Python <strong>переменная</strong> — это именная коробка для хранения данных. Пишется имя латиницей, знак равенства <code>=</code> и число.</p>
-        <pre>gold = 500</pre>
-        <p style="color: #4fa3ff; font-weight: bold;">Задание: Найдите вариант ответа, который создаст переменную "x" со значением 10.</p>
-        <div class="options-list">
-            <button class="option-click-btn" data-correct="false">x == 10</button>
-            <button class="option-click-btn" data-correct="true">x = 10</button>
-            <button class="option-click-btn" data-correct="false">10 = x</button>
-        </div>
+    <div class="manual-card">
+        <div class="badge-num">Модуль 1</div>
+        <h2>Основы синтаксиса и Переменные</h2>
+        <p>В Python переменная создается знаком <code>=</code>. Тип данных (число или текст) указывать не нужно. Имена пишутся латиницей. Запрещено использовать пробелы и начинать имя с цифры. Регистр важен (x и X — разные переменные).</p>
+        <pre>x = 10          # Целое число<br>y = 5.5         # Дробное число<br>is_valid = True # Логическое значение (True/False с большой буквы)</pre>
     </div>
 
-    <!-- УРОК 2 -->
-    <div class="task-card" data-lesson="1">
-        <h2>Урок 2: Текст и строки</h2>
-        <p>Любые текстовые буквы в коде называются <strong>строками</strong>. Чтобы компьютер понимал, где текст, а где команда, слова оборачивают в кавычки.</p>
-        <pre>hero = "Алекс"</pre>
-        <p style="color: #4fa3ff; font-weight: bold;">Задание: Какой код правильно сохранит слово "Python" в переменную "text"?</p>
-        <div class="options-list">
-            <button class="option-click-btn" data-correct="false">text = Python</button>
-            <button class="option-click-btn" data-correct="false">text = "Python</button>
-            <button class="option-click-btn" data-correct="true">text = "Python"</button>
-        </div>
+    <div class="manual-card">
+        <div class="badge-num">Модуль 2</div>
+        <h2>Строки текста и Вывод (print)</h2>
+        <p>Любой текст оборачивается в двойные <code>"..."</code> или одинарные кавычки. Сложение строк (конкатенация) соединяет их без пробелов, поэтому пробелы внутри кавычек нужно ставить вручную. Функция <code>print()</code> выводит результат на экран.</p>
+        <pre>name = "Иван"<br>text = "Привет, " + name + "!"<br>print(text) # Выведет на экран: Привет, Иван!</pre>
     </div>
 
-    <!-- УРОК 3 -->
-    <div class="task-card" data-lesson="2">
-        <h2>Урок 3: Калькулятор вычислений</h2>
-        <p>Python считает со скоростью света. Можно написать математический пример сразу после знака равно, и ответ сам сохранится в переменную.</p>
-        <pre>points = 5 + 10</pre>
-        <p style="color: #4fa3ff; font-weight: bold;">Задание: Выберите код, где переменная "num" равна результату сложения "20 + 30".</p>
-        <div class="options-list">
-            <button class="option-click-btn" data-correct="true">num = 20 + 30</button>
-            <button class="option-click-btn" data-correct="false">num = 20 x 30</button>
-            <button class="option-click-btn" data-correct="false">20 + 30 = num</button>
-        </div>
+    <div class="manual-card">
+        <div class="badge-num">Модуль 3</div>
+        <h2>Преобразование типов данных</h2>
+        <p>Python не умеет математически складывать текст и числа. Текст из цифр нужно принудительно превратить в число функцией <code>int()</code>. Число переводится в текст функцией <code>str()</code>.</p>
+        <pre>num_str = "20"<br>num = int(num_str) # Перевели строку в число 20<br>total = num + 5    # Теперь можно складывать математически<br>print("Результат: " + str(total)) # Перевели число обратно в текст</pre>
     </div>
 
-    <!-- УРОК 4 -->
-    <div class="task-card" data-lesson="3">
-        <h2>Урок 4: Печать на экран</h2>
-        <p>Чтобы увидеть скрытые вычисления кода прямо на экране компьютера, используется встроенная команда вывода <code>print()</code>.</p>
-        <pre>print(77)</pre>
-        <p style="color: #4fa3ff; font-weight: bold;">Задание: Выберите верный способ напечатать на экране число 100.</p>
-        <div class="options-list">
-            <button class="option-click-btn" data-correct="false">Print(100)</button>
-            <button class="option-click-btn" data-correct="true">print(100)</button>
-            <button class="option-click-btn" data-correct="false">print 100</button>
-        </div>
+    <div class="manual-card">
+        <div class="badge-num">Модуль 4</div>
+        <h2>Логика условий и Отступы</h2>
+        <p>Проверка равенства пишется как <code>==</code>, а неравенства — как <code>!=</code>. В конце строки с условием <code>if</code>, <code>elif</code> или <code>else</code> строго ставится двоеточие <code>:</code>. Вложенный исполняемый код на новой строке обязательно должен иметь отступ ровно в 4 пробела.</p>
+        <pre>a = 15<br>if a > 20:<br>    print("Больше 20")<br>elif a == 15:<br>    print("Равно 15")<br>else:<br>    print("Меньше 15")</pre>
     </div>
 
-    <!-- УРОК 5 -->
-    <div class="task-card" data-lesson="4">
-        <h2>Урок 5: Склеивание строк</h2>
-        <p>Знак плюс <code>+</code> умеет соединять строки текста. Если сложить два слова, они превратятся в единое предложение.</p>
-        <pre>phrase = "Hi " + "Oleg"</pre>
-        <p style="color: #4fa3ff; font-weight: bold;">Задание: Какая строчка сложит строки "Hi " и "User" в переменную "msg"?</p>
-        <div class="options-list">
-            <button class="option-click-btn" data-correct="true">msg = "Hi " + "User"</button>
-            <button class="option-click-btn" data-correct="false">msg = "Hi " "User"</button>
-            <button class="option-click-btn" data-correct="false">msg = "Hi " + User</button>
-        </div>
+    <div class="manual-card">
+        <div class="badge-num">Модуль 5</div>
+        <h2>Работа со списками (Lists)</h2>
+        <p>Список хранит набор элементов в квадратных скобках через запятую. Нумерация (индексы) начинается с 0. Функция <code>len()</code> считает количество элементов. Метод <code>.append()</code> вставляет новый элемент в самый конец списка.</p>
+        <pre>items = ["меч", "щит"]<br>print(items[0])       # Выведет первый элемент: меч<br>items.append("зелье") # Добавили элемент в конец списка<br>print(len(items))     # Выведет общую длину списка: 3</pre>
     </div>
 
-    <!-- УРОК 6 -->
-    <div class="task-card" data-lesson="5">
-        <h2>Урок 6: Разветвление if</h2>
-        <p>Команда <code>if</code> (если) проверяет условия. Для точного равенства нужен двойной знак <code>==</code>, а строка должна заканчиваться двоеточием.</p>
-        <pre>if status == "admin":<br>    print("Привет")</pre>
-        <p style="color: #4fa3ff; font-weight: bold;">Задание: Укажите правильный синтаксис: если "a" равно 5, то вывести 1.</p>
-        <div class="options-list">
-            <button class="option-click-btn" data-correct="false">if a = 5: print(1)</button>
-            <button class="option-click-btn" data-correct="true">if a == 5: print(1)</button>
-            <button class="option-click-btn" data-correct="false">if a == 5 print(1)</button>
-        </div>
+    <div class="manual-card">
+        <div class="badge-num">Модуль 6</div>
+        <h2>Циклы for и диапазон range()</h2>
+        <p>Цикл <code>for</code> перебирает элементы списков по очереди. Функция <code>range(N)</code> автоматически генерирует последовательность чисел от 0 до N-1, задавая нужное количество повторений для цикла.</p>
+        <pre>for x in ["A", "B"]:<br>    print("Элемент: " + x)<br>for i in range(3):<br>    print("Повторение номер: " + str(i)) # Выведет индексы 0, 1, 2</pre>
     </div>
 
-    <!-- УРОК 7 -->
-    <div class="task-card" data-lesson="6">
-        <h2>Урок 7: Иначе (else)</h2>
+    <div class="manual-card">
+        <div class="badge-num">Модуль 7</div>
+        <h2>Хранение пар в словарях (Dict)</h2>
+        <p>Словарь хранит данные парами «ключ: значение» в фигурных скобках. Чтобы извлечь или изменить значение, вместо числового индекса в квадратных скобках указывается имя ключа латиницей или в кавычках.</p>
+        <pre>user = {<br>    "name": "Alex",<br>    "level": 5<br>}<br>print(user["name"]) # Найдет значение по ключу: Alex<br>user["level"] = 6   # Изменили значение внутри словаря</pre>
+    </div>
+
+    <div class="manual-card">
+        <div class="badge-num">Модуль 8</div>
+        <h2>Объявление собственных функций</h2>
+        <p>Функция создается словом <code>def</code>, за которым идет имя и круглые скобки с параметрами. Строка завершается двоеточием, тело функции пишется с отступом. Оператор <code>return</code> возвращает вычисленный результат обратно.</p>
+        <pre>def calc(a, b):<br>    result = a + b<br>    return result # Передает ответ наружу<br><br>res = calc(10, 20) # Вызов функции, в res запишется 30</pre>
+    </div>
+
+    <div class="footer-banner">
+        💖 Поддержать развитие проекта a-corp:<br>
+        Т-Банк, перевод по номеру: <strong>89286934363</strong>
+    </div>
+
+</body>
+</html>
