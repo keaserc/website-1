@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Python Quiz Studio</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 15px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #040609;
+            color: #c5cbd3;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        header {
+            background-color: #0b0e14;
+            padding: 15px;
+            border: 1px solid #1b1f27;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        header span { color: #4fa3ff; }
+
+        .task-card {
+            background-color: #0b0e14;
+            border: 1px solid #1b1f27;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        h2 { margin: 0 0 10px 0; color: #ffffff; font-size: 1.3rem; border-bottom: 1px solid #1b1f27; padding-bottom: 8px; }
+        p { margin: 0 0 12px 0; font-size: 0.95rem; line-height: 1.5; }
+        
+        pre {
+            background-color: #010409;
+            color: #e6edf3;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #1b1f27;
+            font-family: monospace;
+            font-size: 0.9rem;
+            margin: 12px 0;
+            overflow-x: auto;
+        }
+
+        .options-list {
+            margin-top: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        /* Кнопки ответов - теперь они интерактивные */
+        .option-click-btn {
+            display: block;
+            width: 100%;
+            background-color: #1f242c;
+            color: #ffffff;
+            border: 1px solid #1b1f27;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 0.95rem;
+            text-align: left;
+            box-sizing: border-box;
+            cursor: pointer;
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
+            transition: background-color 0.15s, border-color 0.15s;
+        }
+        .option-click-btn:hover {
+            border-color: #4fa3ff;
+        }
+
+        /* Эффекты подсветки кликов */
+        .option-click-btn.green-glow {
+            border-color: #2ea44f !important;
+            background-color: rgba(46, 164, 79, 0.15) !important;
+            color: #56d364 !important;
+            font-weight: bold;
+        }
+        .option-click-btn.red-glow {
+            border-color: #da3633 !important;
+            background-color: rgba(248, 81, 137, 0.1) !important;
+            color: #ff7b72 !important;
+        }
+
+        .donation-banner {
+            background-color: #0b0e14;
+            border: 1px solid #1b1f27;
+            border-radius: 6px;
+            padding: 15px;
+            font-size: 0.85rem;
+            text-align: center;
+            line-height: 1.5;
+            margin-top: 30px;
+        }
+        .donation-banner strong { color: #ffca28; font-size: 0.95rem; }
+
+        /* ВСПЛЫВАЮЩЕЕ УВЕДОМЛЕНИЕ НА 1 СЕКУНДУ */
+        .toast-notification {
+            position: fixed;
+            top: 25px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-150px);
+            background-color: #2ea44f;
+            color: #ffffff;
+            padding: 12px 28px;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+            z-index: 99999;
+            transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            pointer-events: none;
+        }
+        .toast-notification.pop-up {
+            transform: translateX(-50%) translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Окно всплывающего уведомления -->
+    <div class="toast-notification" id="toast-window">✨ Ты молодец! Отличный результат!</div>
+
+    <header>
+        🐍 Python<span>Quiz</span> Studio — Живой интерактивный тренажер
+    </header>
+
+    <!-- УРОК 1 -->
+    <div class="task-card">
+        <h2>Урок 1: Создаем переменную</h2>
+        <p>В Python <strong>переменная</strong> — это именная коробка для хранения данных. Пишется имя латиницей, знак равенства <code>=</code> и число.</p>
+        <pre>gold = 500</pre>
+        <p style="color: #4fa3ff; font-weight: bold;">Задание: Найдите вариант ответа, который создаст переменную "x" со значением 10.</p>
+        
+        <div class="options-list">
+            <button class="option-click-btn" onclick="checkUserChoice(this, false)">x == 10</button>
+            <button class="option-click-btn" onclick="checkUserChoice(this, true)">x = 10</button>
+            <button class="option-click-btn" onclick="checkUserChoice(this, false)">10 = x</button>
+        </div>
+    </div>
+
+    <!-- УРОК 2 -->
+    <div class="task-card">
+        <h2>Урок 2: Текст и строки</h2>
+        <p>Любые текстовые буквы в коде называются <strong>строками</strong>. Чтобы компьютер понимал, где текст, а где команда, слова оборачивают в кавычки.</p>
+        <pre>hero = "Алекс"</pre>
+        <p style="color: #4fa3ff; font-weight: bold;">Задание: Какой код правильно сохранит слово "Python" в переменную "text"?</p>
+        
+        <div class="options-list">
+            <button class="option-click-btn" onclick="checkUserChoice(this, false)">text = Python</button>
+            <button class="option-click-btn" onclick="checkUserChoice(this, false)">text = "Python</button>
+            <button class="option-click-btn" onclick="checkUserChoice(this, true)">text = "Python"</button>
+        </div>
+    </div>
+
+    <!-- УРОК 3 -->
+    <div class="task-card">
+        <h2>Урок 3: Калькулятор вычислений</h2>
+        <p>Python считает со скоростью света. Можно написать математический пример сразу после знака равно, и ответ сам сохранится в переменную.</p>
+        <pre>points = 5 + 10</pre>
+        <p style="color: #4fa3ff; font-weight: bold;">Задание: Выберите код, где переменная "num" равна результату сложения "20 + 30".</p>
+        
+        <div class="options-list">
+            <button class="option-click-btn" onclick="checkUserChoice(this, true)">num = 20 + 30</button>
+            <button class="option-click-btn" onclick="checkUserChoice(this, false)">num = 20 x 30</button>
+            <button class="option-click-btn" onclick="checkUserChoice(this, false)">20 + 30 = num</button>
+        </div>
+    </div>
+
+    <!-- УРОК 4 -->
+    <div class="task-card">
+        <h2>Урок 4: Печать на экран</h2>
+        <p>Чтобы увидеть скрытые вычисления кода прямо на экране компьютера, используется встроенная команда вывода <code>print()</code>.</p>
+        <pre>print(77)</pre>
+        <p style="color: #4fa3ff; font-weight: bold;">Задание: Выберите верный способ напечатать на экране число 100.</p>
+        
+        <div class="options-list">
+            <button class="option-click-btn" onclick="checkUserChoice(this, false)">Print(100)</button>
+            <button class="option-click-btn" onclick="checkUserChoice(this, true)">print(100)</button>
+            <button class="option-click-btn" onclick="checkUserChoice(this, false)">print 100</button>
+        </div>
+    </div>
+
+    <!-- УРОК 5 -->
+    <div class="task-card">
+        <h2>Урок 5: Склеивание строк</h2>
+        <p>Знак плюс <code>+</code> умеет соединять строки текста. Если сложить два слова, они превратятся в единое предложение.</p>
+        <pre>phrase = "Hi " + "Oleg"</pre>
+        <p style="color: #4fa3ff; font-weight: bold;">Задание: Какая строчка сложит строки "Hi " и "User" в переменную "msg"?</p>
+        
+        <div class="options-list">
+            <button class="option-click-btn" onclick="checkUserChoice(this, true)">msg = "Hi " + "User"</button>
+            <button class="option-click-btn" onclick="checkUserChoice(this, false)">msg = "Hi " "User"</button>
+            <button class="option-click-btn" onclick="checkUserChoice(this, false)">msg = "Hi " + User</button>
+        </div>
+    </div>
+
+    <!-- УРОК 6 -->
+    <div class="task-card">
+        <h2>Урок 6: Разветвление if</h2>
+        <p>Команда <code>if</code> (если) проверяет условия. Для точного равенства нужен двойной знак <code>==</code>, а строка должна заканчиваться двоеточием.</p>
+        <pre>if status == "admin":<br>    print("Привет")</pre>
+        <p style="color: #4fa3ff; font-weight: bold;">Задание: Укажите правильный синтаксис: если "a" равно 5, то вывести 1.</p>
+        
+        <div class="options-list">
+            <button class="option-click-btn" onclick="checkUserChoice(this, false)">if a = 5: print(1)</button>
+            <button class="option-click-btn" onclick="checkUserChoice(this, true)">if a == 5: print(1)</button>
+            <button class="option-click-btn" onclick="checkUserChoice(this, false)">if a == 5 print(1)</button>
+        </div>
+    </div>
+
+    <!-- УРОК 7 -->
+    <div class="task-card">
+        <h2>Урок 7: Иначе (else)</h2>
+        <p>Блок <code>else:</code> служит планом Б, если условие в <code>if</code> ложно. Он пишется строго на одном уровне с if и закрывается двоеточием.</p>
+        <pre>if x > 5:<br>    print(1)<br>else:<br>    print(0)</pre>
+        <p style="color: #4fa3ff; font-weight: bold;">Задание: Найдите корректно оформленный запасной блок else, выводящий 0.</p>
+        
+        <div class="options-list">
+            <button class="option-click-btn" onclick="checkUserChoice(this, true)">else: print(0)</button>
+            <button class="option-click-btn" onclick="checkUserChoice(this, false)">else a != 5: print(0)</button>
+            <button class="option-click-btn" onclick="checkUserChoice(this, false)">else print(0)</button>
+        </div>
+    </div>
+
