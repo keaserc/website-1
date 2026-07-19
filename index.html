@@ -56,7 +56,7 @@
             gap: 10px;
         }
 
-        /* Кнопки ответов - теперь они интерактивные */
+        /* 📱 МОБИЛЬНЫЙ ФИКС: Убираем синие обводки и задержки тапов */
         .option-click-btn {
             display: block;
             width: 100%;
@@ -71,14 +71,11 @@
             box-sizing: border-box;
             cursor: pointer;
             outline: none;
-            -webkit-tap-highlight-color: transparent;
+            -webkit-tap-highlight-color: transparent; /* Убирает синюю рамку на Android/iOS */
+            -webkit-appearance: none;
             transition: background-color 0.15s, border-color 0.15s;
         }
-        .option-click-btn:hover {
-            border-color: #4fa3ff;
-        }
 
-        /* Эффекты подсветки кликов */
         .option-click-btn.green-glow {
             border-color: #2ea44f !important;
             background-color: rgba(46, 164, 79, 0.15) !important;
@@ -89,6 +86,40 @@
             border-color: #da3633 !important;
             background-color: rgba(248, 81, 137, 0.1) !important;
             color: #ff7b72 !important;
+        }
+
+        /* НАГРАДА И ФИНАЛЬНЫЙ СЕКРЕТНЫЙ СЕЙФ */
+        .reward-section {
+            background-color: #0d1117;
+            border: 2px dashed #30363d;
+            border-radius: 8px;
+            padding: 25px;
+            text-align: center;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            transition: all 0.4s ease;
+        }
+        .reward-section.unlocked {
+            border-color: #ffca28;
+            background-color: #161b22;
+            box-shadow: 0 0 20px rgba(255, 202, 40, 0.15);
+        }
+        .chest-icon {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            display: inline-block;
+            transition: transform 0.3s;
+        }
+        .reward-section.unlocked .chest-icon {
+            transform: scale(1.1);
+        }
+        .prize-diploma {
+            display: none;
+            animation: fadeIn 0.5s ease forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .donation-banner {
@@ -103,7 +134,6 @@
         }
         .donation-banner strong { color: #ffca28; font-size: 0.95rem; }
 
-        /* ВСПЛЫВАЮЩЕЕ УВЕДОМЛЕНИЕ НА 1 СЕКУНДУ */
         .toast-notification {
             position: fixed;
             top: 25px;
@@ -120,115 +150,95 @@
             transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             pointer-events: none;
         }
-        .toast-notification.pop-up {
-            transform: translateX(-50%) translateY(0);
-        }
+        .toast-notification.pop-up { transform: translateX(-50%) translateY(0); }
     </style>
 </head>
 <body>
 
-    <!-- Окно всплывающего уведомления -->
     <div class="toast-notification" id="toast-window">✨ Ты молодец! Отличный результат!</div>
 
     <header>
-        🐍 Python<span>Quiz</span> Studio — Живой интерактивный тренажер
+        🐍 Python<span>Quiz</span> Studio — Живой мобильный тренажер
     </header>
 
     <!-- УРОК 1 -->
-    <div class="task-card">
+    <div class="task-card" data-lesson="0">
         <h2>Урок 1: Создаем переменную</h2>
         <p>В Python <strong>переменная</strong> — это именная коробка для хранения данных. Пишется имя латиницей, знак равенства <code>=</code> и число.</p>
         <pre>gold = 500</pre>
         <p style="color: #4fa3ff; font-weight: bold;">Задание: Найдите вариант ответа, который создаст переменную "x" со значением 10.</p>
-        
         <div class="options-list">
-            <button class="option-click-btn" onclick="checkUserChoice(this, false)">x == 10</button>
-            <button class="option-click-btn" onclick="checkUserChoice(this, true)">x = 10</button>
-            <button class="option-click-btn" onclick="checkUserChoice(this, false)">10 = x</button>
+            <button class="option-click-btn" data-correct="false">x == 10</button>
+            <button class="option-click-btn" data-correct="true">x = 10</button>
+            <button class="option-click-btn" data-correct="false">10 = x</button>
         </div>
     </div>
 
     <!-- УРОК 2 -->
-    <div class="task-card">
+    <div class="task-card" data-lesson="1">
         <h2>Урок 2: Текст и строки</h2>
         <p>Любые текстовые буквы в коде называются <strong>строками</strong>. Чтобы компьютер понимал, где текст, а где команда, слова оборачивают в кавычки.</p>
         <pre>hero = "Алекс"</pre>
         <p style="color: #4fa3ff; font-weight: bold;">Задание: Какой код правильно сохранит слово "Python" в переменную "text"?</p>
-        
         <div class="options-list">
-            <button class="option-click-btn" onclick="checkUserChoice(this, false)">text = Python</button>
-            <button class="option-click-btn" onclick="checkUserChoice(this, false)">text = "Python</button>
-            <button class="option-click-btn" onclick="checkUserChoice(this, true)">text = "Python"</button>
+            <button class="option-click-btn" data-correct="false">text = Python</button>
+            <button class="option-click-btn" data-correct="false">text = "Python</button>
+            <button class="option-click-btn" data-correct="true">text = "Python"</button>
         </div>
     </div>
 
     <!-- УРОК 3 -->
-    <div class="task-card">
+    <div class="task-card" data-lesson="2">
         <h2>Урок 3: Калькулятор вычислений</h2>
         <p>Python считает со скоростью света. Можно написать математический пример сразу после знака равно, и ответ сам сохранится в переменную.</p>
         <pre>points = 5 + 10</pre>
         <p style="color: #4fa3ff; font-weight: bold;">Задание: Выберите код, где переменная "num" равна результату сложения "20 + 30".</p>
-        
         <div class="options-list">
-            <button class="option-click-btn" onclick="checkUserChoice(this, true)">num = 20 + 30</button>
-            <button class="option-click-btn" onclick="checkUserChoice(this, false)">num = 20 x 30</button>
-            <button class="option-click-btn" onclick="checkUserChoice(this, false)">20 + 30 = num</button>
+            <button class="option-click-btn" data-correct="true">num = 20 + 30</button>
+            <button class="option-click-btn" data-correct="false">num = 20 x 30</button>
+            <button class="option-click-btn" data-correct="false">20 + 30 = num</button>
         </div>
     </div>
 
     <!-- УРОК 4 -->
-    <div class="task-card">
+    <div class="task-card" data-lesson="3">
         <h2>Урок 4: Печать на экран</h2>
         <p>Чтобы увидеть скрытые вычисления кода прямо на экране компьютера, используется встроенная команда вывода <code>print()</code>.</p>
         <pre>print(77)</pre>
         <p style="color: #4fa3ff; font-weight: bold;">Задание: Выберите верный способ напечатать на экране число 100.</p>
-        
         <div class="options-list">
-            <button class="option-click-btn" onclick="checkUserChoice(this, false)">Print(100)</button>
-            <button class="option-click-btn" onclick="checkUserChoice(this, true)">print(100)</button>
-            <button class="option-click-btn" onclick="checkUserChoice(this, false)">print 100</button>
+            <button class="option-click-btn" data-correct="false">Print(100)</button>
+            <button class="option-click-btn" data-correct="true">print(100)</button>
+            <button class="option-click-btn" data-correct="false">print 100</button>
         </div>
     </div>
 
     <!-- УРОК 5 -->
-    <div class="task-card">
+    <div class="task-card" data-lesson="4">
         <h2>Урок 5: Склеивание строк</h2>
         <p>Знак плюс <code>+</code> умеет соединять строки текста. Если сложить два слова, они превратятся в единое предложение.</p>
         <pre>phrase = "Hi " + "Oleg"</pre>
         <p style="color: #4fa3ff; font-weight: bold;">Задание: Какая строчка сложит строки "Hi " и "User" в переменную "msg"?</p>
-        
         <div class="options-list">
-            <button class="option-click-btn" onclick="checkUserChoice(this, true)">msg = "Hi " + "User"</button>
-            <button class="option-click-btn" onclick="checkUserChoice(this, false)">msg = "Hi " "User"</button>
-            <button class="option-click-btn" onclick="checkUserChoice(this, false)">msg = "Hi " + User</button>
+            <button class="option-click-btn" data-correct="true">msg = "Hi " + "User"</button>
+            <button class="option-click-btn" data-correct="false">msg = "Hi " "User"</button>
+            <button class="option-click-btn" data-correct="false">msg = "Hi " + User</button>
         </div>
     </div>
 
     <!-- УРОК 6 -->
-    <div class="task-card">
+    <div class="task-card" data-lesson="5">
         <h2>Урок 6: Разветвление if</h2>
         <p>Команда <code>if</code> (если) проверяет условия. Для точного равенства нужен двойной знак <code>==</code>, а строка должна заканчиваться двоеточием.</p>
         <pre>if status == "admin":<br>    print("Привет")</pre>
         <p style="color: #4fa3ff; font-weight: bold;">Задание: Укажите правильный синтаксис: если "a" равно 5, то вывести 1.</p>
-        
         <div class="options-list">
-            <button class="option-click-btn" onclick="checkUserChoice(this, false)">if a = 5: print(1)</button>
-            <button class="option-click-btn" onclick="checkUserChoice(this, true)">if a == 5: print(1)</button>
-            <button class="option-click-btn" onclick="checkUserChoice(this, false)">if a == 5 print(1)</button>
+            <button class="option-click-btn" data-correct="false">if a = 5: print(1)</button>
+            <button class="option-click-btn" data-correct="true">if a == 5: print(1)</button>
+            <button class="option-click-btn" data-correct="false">if a == 5 print(1)</button>
         </div>
     </div>
 
     <!-- УРОК 7 -->
-    <div class="task-card">
+    <div class="task-card" data-lesson="6">
         <h2>Урок 7: Иначе (else)</h2>
-        <p>Блок <code>else:</code> служит планом Б, если условие в <code>if</code> ложно. Он пишется строго на одном уровне с if и закрывается двоеточием.</p>
-        <pre>if x > 5:<br>    print(1)<br>else:<br>    print(0)</pre>
-        <p style="color: #4fa3ff; font-weight: bold;">Задание: Найдите корректно оформленный запасной блок else, выводящий 0.</p>
-        
-        <div class="options-list">
-            <button class="option-click-btn" onclick="checkUserChoice(this, true)">else: print(0)</button>
-            <button class="option-click-btn" onclick="checkUserChoice(this, false)">else a != 5: print(0)</button>
-            <button class="option-click-btn" onclick="checkUserChoice(this, false)">else print(0)</button>
-        </div>
-    </div>
-
